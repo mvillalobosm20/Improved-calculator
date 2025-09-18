@@ -1,0 +1,114 @@
+def addmultiplenumbers(numbers):
+    # Suma todos los números en la lista 'numbers' y devuelve el resultado
+    return sum(numbers)
+
+
+def multiplymultiplenumbers(numbers):
+    # Multiplica todos los números en la lista 'numbers' y devuelve el resultado
+    product = 1  # Inicio en 1 porque es el elemento neutro de la multiplicación
+    for num in numbers:
+        product *= num  # Multiplica acumulativamente cada número
+    return product
+
+
+def isiteven(num):
+    # Determina si un número es par
+    if isinstance(num, int):
+        # Si es un entero, verifica si el residuo al dividir entre 2 es cero (par)
+        return num % 2 == 0
+    if isinstance(num, float):
+        # Si es un float, primero verifica si es un número entero (ej. 4.0)
+        if num.is_integer():
+            # Convierte a entero y verifica si es par
+            return int(num) % 2 == 0
+    return False  # En cualquier otro caso no es par
+
+
+def isitaninteger(num):
+    # Determina si un número es un entero, incluso si está en formato float con valor entero (ej. 7.0)
+    if isinstance(num, int):
+        return True  # Es entero nativo
+    if isinstance(num, float):
+        # Verifica si el float no tiene parte decimal (es entero)
+        return num.is_integer()
+    return False  # Si no es ni int ni float con valor entero, devuelve False
+
+
+def main():
+    # Función principal que implementa la calculadora y la interacción con el usuario
+
+    print("Ingrese dos numeros para sumar:")
+    print("Numero 1:")
+    num1 = float(input())  # Lee input, convierte a float para permitir decimales
+    print("Numero 2:")
+    num2 = float(input())
+    suma = num1 + num2  # Suma los dos números
+
+    # Imprime la suma como entero si no tiene parte decimal, si no, como float
+    if suma.is_integer():
+        print(int(suma))
+    else:
+        print(suma)
+
+    # Bucle para que el usuario pueda realizar operaciones adicionales hasta que decida salir
+    while True:
+        print("\nElija la operacion adicional a realizar:")
+        print("1. Restar segundo numero del primero")
+        print("2. Multiplicar dos numeros por dos")
+        print("3. Dividir primer numero por segundo")
+        print("4. Modulo entre dos numeros")
+        print("5. Sumar tres numeros")
+        print("6. Operacion mixta con 3 o mas numeros")
+        print("0. No hacer nada y probar pytest")
+
+        opcion = input("Ingrese opcion: ")  # Lee la opción elegida
+
+        if opcion == "0":
+            print("Chauuu...")
+            break  # Sale del bucle y termina el programa
+
+        # Para las opciones 1 a 4 pide dos números y realiza la operación correspondiente
+        if opcion in ["1", "2", "3", "4"]:
+            num3 = float(input("Ingrese primer numero: "))
+            num4 = float(input("Ingrese segundo numero: "))
+
+            if opcion == "1":
+                print("Resultado:", num3 - num4)  # Resta: primer menos segundo
+            elif opcion == "2":
+                print("Resultado:", num3 * 2, num4 * 2)  # Multiplica ambos números por 2
+            elif opcion == "3":
+                # División: maneja error si el segundo número es 0 para evitar división por cero
+                if num4 == 0:
+                    print("Error: Division por cero no permitida")
+                else:
+                    print("Resultado:", num3 / num4)
+            elif opcion == "4":
+                # Módulo: resto de la división, maneja error si divisor es 0
+                if num4 == 0:
+                    print("Error: Modulo por cero no permitido")
+                else:
+                    print("Resultado:", num3 % num4)
+
+        elif opcion == "5":
+            # Suma tres números ingresados por el usuario
+            num3 = float(input("Numero 1: "))
+            num4 = float(input("Numero 2: "))
+            num1 = float(input("Numero 3: "))
+            print("Resultado:", num3 + num4 + num1)
+
+        elif opcion == "6":
+            # Permite al usuario ingresar una expresión matemática completa y la evalúa
+            expr = input("Ingrese expresion matematica (ejemplo: 2 + 4 - 3 * 2): ")
+            try:
+                resultado = eval(expr)  # Usa eval para calcular la expresión
+                print("Resultado:", resultado)
+            except Exception as e:
+                # Captura y muestra errores si la expresión no es válida
+                print("Error en la expresion:", e)
+
+        else:
+            print("Opcion invalida, intente de nuevo.")
+
+
+if __name__ == "__main__":
+    main()
